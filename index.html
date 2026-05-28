@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NXT 数智人格测试</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section id="homePage" class="page page-home is-active">
+        <div class="hero-orbit" aria-hidden="true"></div>
+        <p class="eyebrow">安徽农业大学 · 农芯数智社</p>
+        <h1>NXT 数智人格测试</h1>
+        <p class="hero-copy">
+          用 30 道校园数字化情境题，定位你的数智人格原型。你会是控场的 CTRL、灵感流 STREAM，还是低电量但稳定输出的 LOWBAT？
+        </p>
+        <div class="club-panel">
+          <p>
+            农芯数智社关注 AI 工具、数据分析、网页开发与数字化创作。这里欢迎会写代码的人，也欢迎会提问题、会组织、会表达、会把想法做出来的人。
+          </p>
+        </div>
+        <button id="startBtn" class="primary-btn">开始测试</button>
+      </section>
+
+      <section id="quizPage" class="page page-quiz" aria-live="polite">
+        <header class="quiz-header">
+          <div>
+            <p class="eyebrow">NXT Personality Scan</p>
+            <h2 id="questionCounter">第 1 / 30 题</h2>
+          </div>
+          <button id="homeBtn" class="ghost-btn" type="button">首页</button>
+        </header>
+        <div class="progress-track" aria-label="答题进度">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+        <article class="question-card">
+          <h3 id="questionText"></h3>
+          <div id="optionsList" class="options-list"></div>
+        </article>
+        <footer class="quiz-actions">
+          <button id="prevBtn" class="secondary-btn" type="button">上一题</button>
+          <button id="nextBtn" class="primary-btn" type="button">下一题</button>
+        </footer>
+      </section>
+
+      <section id="resultPage" class="page page-result">
+        <div class="result-card" id="resultCard">
+          <p class="eyebrow">你的 NXT 数智人格是</p>
+          <h2 id="resultName"></h2>
+          <p id="resultTagline" class="result-tagline"></p>
+          <div class="match-pill">
+            匹配度 <strong id="matchValue">--%</strong>
+          </div>
+          <img id="resultImage" class="result-image" src="" alt="人格结果图" />
+          <div class="join-panel">
+            <h3>加入农芯数智社</h3>
+            <p>带着你的数智人格来组队：一起做 AI 项目、数据作品、社团活动和校园数字化实践。</p>
+          </div>
+        </div>
+        <div class="result-actions">
+          <button id="saveBtn" class="primary-btn" type="button">保存结果图</button>
+          <button id="shareBtn" class="secondary-btn" type="button">分享测试结果</button>
+          <button id="restartBtn" class="ghost-btn" type="button">重新测试</button>
+        </div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
