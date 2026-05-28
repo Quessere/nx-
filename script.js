@@ -7,6 +7,41 @@ const DIMENSIONS = [
   { key: "RELAX", label: "松弛指数" },
 ];
 
+const MATCH_WEIGHTS = {
+  dimensions: 0.22,
+  axes: 0.36,
+  choices: 0.18,
+  votes: 0.24,
+};
+
+const PERSONALITY_AXES = [
+  {
+    key: "ORDER",
+    label: "秩序倾向",
+    get: (s) => average(s.CONTROL, s.EXEC) - average(s.CREATE, s.RELAX),
+  },
+  {
+    key: "ANALYSIS",
+    label: "分析倾向",
+    get: (s) => s.LOGIC - s.SOCIAL,
+  },
+  {
+    key: "ACTION",
+    label: "行动倾向",
+    get: (s) => s.EXEC - s.RELAX,
+  },
+  {
+    key: "EXPRESSION",
+    label: "表达倾向",
+    get: (s) => average(s.SOCIAL, s.CREATE) - average(s.LOGIC, s.CONTROL),
+  },
+  {
+    key: "NOVELTY",
+    label: "创新倾向",
+    get: (s) => s.CREATE - average(s.CONTROL, s.EXEC),
+  },
+];
+
 const QUESTIONS = [
   q("课程作业刚布置，你会先？", [
     ["看要求和截止时间", { CONTROL: 2, EXEC: 1 }],
@@ -193,85 +228,172 @@ const QUESTIONS = [
 const PERSONAS = {
   CTRL: {
     name: "控制人格 CTRL",
-    tagline: "你擅长把复杂局面收束成流程，让团队重新进入稳定运行状态。",
-    profile: { CONTROL: 92, LOGIC: 72, EXEC: 82, SOCIAL: 46, CREATE: 42, RELAX: 32 },
+    tagline: "你擅长建立秩序和边界，把复杂局面收束成稳定流程。",
+    profile: { CONTROL: 96, LOGIC: 72, EXEC: 82, SOCIAL: 34, CREATE: 28, RELAX: 18 },
+    direction: "秩序推进型",
   },
   PROMPT: {
     name: "提示词人格 PROMPT",
-    tagline: "你善于提出精准问题，把模糊需求转化为可执行的表达。",
-    profile: { CONTROL: 58, LOGIC: 80, EXEC: 54, SOCIAL: 62, CREATE: 86, RELAX: 48 },
+    tagline: "你善于提出关键问题，把模糊想法转化成清晰表达。",
+    profile: { CONTROL: 56, LOGIC: 86, EXEC: 48, SOCIAL: 62, CREATE: 90, RELAX: 44 },
+    direction: "提问转译型",
   },
   DEBUG: {
     name: "调试人格 DEBUG",
-    tagline: "你总能发现哪里不对，并耐心把问题拆到可以修复的粒度。",
-    profile: { CONTROL: 62, LOGIC: 94, EXEC: 72, SOCIAL: 36, CREATE: 46, RELAX: 34 },
+    tagline: "你总能发现哪里不对，并把问题拆到可以修复的粒度。",
+    profile: { CONTROL: 66, LOGIC: 98, EXEC: 74, SOCIAL: 22, CREATE: 34, RELAX: 24 },
+    direction: "逻辑修复型",
   },
   AFK: {
     name: "离线人格 AFK",
-    tagline: "你知道什么时候该暂停，状态恢复后反而能稳定交付。",
-    profile: { CONTROL: 34, LOGIC: 58, EXEC: 38, SOCIAL: 30, CREATE: 56, RELAX: 94 },
+    tagline: "你知道什么时候该暂停，恢复能量后再重新上线。",
+    profile: { CONTROL: 24, LOGIC: 46, EXEC: 22, SOCIAL: 20, CREATE: 50, RELAX: 98 },
+    direction: "离线恢复型",
   },
   NODE: {
     name: "节点人格 NODE",
-    tagline: "你是信息与资源的连接点，能让团队协作变得更顺畅。",
-    profile: { CONTROL: 54, LOGIC: 58, EXEC: 62, SOCIAL: 92, CREATE: 50, RELAX: 54 },
+    tagline: "你是信息与资源的连接点，能让团队协作顺畅起来。",
+    profile: { CONTROL: 50, LOGIC: 54, EXEC: 64, SOCIAL: 96, CREATE: 42, RELAX: 48 },
+    direction: "协作连接型",
   },
   GHOST: {
     name: "幽灵人格 GHOST",
-    tagline: "你安静观察、低调判断，常常在关键时刻给出清醒答案。",
-    profile: { CONTROL: 48, LOGIC: 86, EXEC: 42, SOCIAL: 24, CREATE: 64, RELAX: 72 },
+    tagline: "你安静观察、低调判断，常在关键时刻给出清醒答案。",
+    profile: { CONTROL: 42, LOGIC: 90, EXEC: 30, SOCIAL: 12, CREATE: 58, RELAX: 78 },
+    direction: "内省观察型",
   },
   CLOUD: {
     name: "云端人格 CLOUD",
-    tagline: "你的想法轻盈而有弹性，能在变化里保存灵感和可能性。",
-    profile: { CONTROL: 32, LOGIC: 54, EXEC: 38, SOCIAL: 58, CREATE: 84, RELAX: 88 },
+    tagline: "你的想法轻盈而有弹性，能在变化中保存灵感和可能性。",
+    profile: { CONTROL: 18, LOGIC: 42, EXEC: 24, SOCIAL: 58, CREATE: 88, RELAX: 94 },
+    direction: "弹性灵感型",
   },
   GLITCH: {
     name: "故障人格 GLITCH",
-    tagline: "你不按常规出牌，偶尔的偏航反而制造出新的解法。",
-    profile: { CONTROL: 28, LOGIC: 62, EXEC: 44, SOCIAL: 42, CREATE: 96, RELAX: 66 },
+    tagline: "你不按常规出牌，偏航时反而能制造新的解法。",
+    profile: { CONTROL: 14, LOGIC: 62, EXEC: 36, SOCIAL: 36, CREATE: 98, RELAX: 64 },
+    direction: "破格创造型",
   },
   MINER: {
     name: "矿工人格 MINER",
     tagline: "你愿意深入挖掘，把隐藏在线索背后的价值一点点采出来。",
-    profile: { CONTROL: 64, LOGIC: 82, EXEC: 78, SOCIAL: 30, CREATE: 50, RELAX: 30 },
+    profile: { CONTROL: 62, LOGIC: 88, EXEC: 84, SOCIAL: 18, CREATE: 44, RELAX: 20 },
+    direction: "深挖研究型",
   },
   PATCH: {
     name: "补丁人格 PATCH",
     tagline: "你擅长快速补位、修复流程，让事情继续向前跑。",
-    profile: { CONTROL: 74, LOGIC: 62, EXEC: 92, SOCIAL: 50, CREATE: 38, RELAX: 34 },
+    profile: { CONTROL: 74, LOGIC: 58, EXEC: 96, SOCIAL: 46, CREATE: 28, RELAX: 22 },
+    direction: "补位交付型",
   },
   SIGNAL: {
     name: "信号人格 SIGNAL",
     tagline: "你能捕捉氛围和信息流，帮助团队找到共同频率。",
-    profile: { CONTROL: 44, LOGIC: 60, EXEC: 50, SOCIAL: 90, CREATE: 68, RELAX: 54 },
+    profile: { CONTROL: 36, LOGIC: 64, EXEC: 42, SOCIAL: 94, CREATE: 66, RELAX: 58 },
+    direction: "氛围感知型",
   },
   STREAM: {
     name: "直播人格 STREAM",
-    tagline: "你表达欲和现场感都很强，能把想法转化成有感染力的内容。",
-    profile: { CONTROL: 36, LOGIC: 42, EXEC: 62, SOCIAL: 88, CREATE: 92, RELAX: 48 },
+    tagline: "你表达欲和现场感很强，能把想法变成有感染力的内容。",
+    profile: { CONTROL: 22, LOGIC: 32, EXEC: 62, SOCIAL: 98, CREATE: 94, RELAX: 36 },
+    direction: "表达传播型",
   },
   LOWBAT: {
     name: "低电量人格 LOWBAT",
     tagline: "你对能量消耗很敏感，懂得用更低内耗的方式完成任务。",
-    profile: { CONTROL: 46, LOGIC: 54, EXEC: 42, SOCIAL: 34, CREATE: 52, RELAX: 90 },
+    profile: { CONTROL: 40, LOGIC: 56, EXEC: 28, SOCIAL: 24, CREATE: 38, RELAX: 96 },
+    direction: "低耗续航型",
   },
   OVERCLK: {
     name: "超频人格 OVERCLK",
-    tagline: "一旦进入状态，你会高速推进，在压力下爆发出强执行力。",
-    profile: { CONTROL: 66, LOGIC: 58, EXEC: 96, SOCIAL: 48, CREATE: 64, RELAX: 22 },
+    tagline: "一旦进入状态，你会高速推进，在压力下爆发强执行力。",
+    profile: { CONTROL: 58, LOGIC: 48, EXEC: 100, SOCIAL: 42, CREATE: 64, RELAX: 8 },
+    direction: "高速冲刺型",
   },
   ALT: {
     name: "平行人格 ALT",
     tagline: "你喜欢保留替代路径，总能从另一个角度打开问题。",
-    profile: { CONTROL: 42, LOGIC: 66, EXEC: 38, SOCIAL: 50, CREATE: 92, RELAX: 78 },
+    profile: { CONTROL: 28, LOGIC: 70, EXEC: 24, SOCIAL: 44, CREATE: 94, RELAX: 82 },
+    direction: "替代路径型",
   },
   AGENT: {
     name: "智能体人格 AGENT",
-    tagline: "你能理解目标、协调资源并自主推进，是很适合项目制协作的类型。",
-    profile: { CONTROL: 78, LOGIC: 76, EXEC: 84, SOCIAL: 70, CREATE: 62, RELAX: 42 },
+    tagline: "你能理解目标、协调资源并自主推进，适合项目制协作。",
+    profile: { CONTROL: 82, LOGIC: 76, EXEC: 88, SOCIAL: 72, CREATE: 58, RELAX: 30 },
+    direction: "自主协同型",
   },
 };
+
+const PERSONA_AXES = {
+  CTRL: axes(92, 70, 78, -42, -76),
+  PROMPT: axes(12, 58, -8, 42, 72),
+  DEBUG: axes(62, 96, 48, -84, -38),
+  AFK: axes(-82, 18, -94, -68, 22),
+  NODE: axes(24, -22, 38, 88, -18),
+  GHOST: axes(-36, 86, -72, -96, 34),
+  CLOUD: axes(-92, -18, -82, 32, 86),
+  GLITCH: axes(-96, 24, -28, 12, 98),
+  MINER: axes(42, 88, 62, -92, -12),
+  PATCH: axes(86, 16, 96, 18, -72),
+  SIGNAL: axes(-18, 8, -12, 92, 38),
+  STREAM: axes(-42, -64, 42, 96, 82),
+  LOWBAT: axes(-56, 42, -98, -74, -28),
+  OVERCLK: axes(58, -12, 100, 2, 28),
+  ALT: axes(-88, 52, -78, -18, 94),
+  AGENT: axes(72, 52, 84, 58, -8),
+};
+
+const PERSONA_CHOICE_PATTERNS = {
+  CTRL: choices(70, 20, 5, 5),
+  PROMPT: choices(10, 45, 20, 25),
+  DEBUG: choices(15, 75, 0, 10),
+  AFK: choices(5, 10, 5, 80),
+  NODE: choices(10, 5, 75, 10),
+  GHOST: choices(10, 55, 0, 35),
+  CLOUD: choices(0, 5, 25, 70),
+  GLITCH: choices(0, 30, 5, 65),
+  MINER: choices(25, 65, 0, 10),
+  PATCH: choices(55, 10, 30, 5),
+  SIGNAL: choices(5, 25, 55, 15),
+  STREAM: choices(5, 0, 55, 40),
+  LOWBAT: choices(15, 25, 0, 60),
+  OVERCLK: choices(60, 5, 25, 10),
+  ALT: choices(5, 35, 10, 50),
+  AGENT: choices(35, 25, 35, 5),
+};
+
+const PERSONA_OPTION_MAP = [
+  ["CTRL", "PROMPT", "NODE", "GLITCH"],
+  ["OVERCLK", "DEBUG", "PATCH", "LOWBAT"],
+  ["CTRL", "DEBUG", "SIGNAL", "STREAM"],
+  ["PATCH", "MINER", "AGENT", "CLOUD"],
+  ["CTRL", "PROMPT", "SIGNAL", "ALT"],
+  ["CTRL", "MINER", "NODE", "ALT"],
+  ["PATCH", "DEBUG", "NODE", "AFK"],
+  ["PATCH", "MINER", "AGENT", "LOWBAT"],
+  ["PATCH", "PROMPT", "NODE", "GLITCH"],
+  ["CTRL", "DEBUG", "SIGNAL", "AFK"],
+  ["CTRL", "MINER", "NODE", "STREAM"],
+  ["PATCH", "DEBUG", "SIGNAL", "GLITCH"],
+  ["CTRL", "PROMPT", "NODE", "STREAM"],
+  ["CTRL", "DEBUG", "SIGNAL", "LOWBAT"],
+  ["PATCH", "MINER", "NODE", "STREAM"],
+  ["CTRL", "DEBUG", "AGENT", "GLITCH"],
+  ["OVERCLK", "GHOST", "SIGNAL", "AFK"],
+  ["PATCH", "DEBUG", "PROMPT", "CLOUD"],
+  ["CTRL", "PROMPT", "NODE", "CLOUD"],
+  ["PATCH", "DEBUG", "SIGNAL", "ALT"],
+  ["CTRL", "MINER", "NODE", "CLOUD"],
+  ["CTRL", "PROMPT", "AGENT", "STREAM"],
+  ["CTRL", "DEBUG", "SIGNAL", "CLOUD"],
+  ["PATCH", "PROMPT", "NODE", "STREAM"],
+  ["CTRL", "MINER", "AGENT", "ALT"],
+  ["CTRL", "DEBUG", "NODE", "GLITCH"],
+  ["CTRL", "GHOST", "SIGNAL", "AFK"],
+  ["PATCH", "DEBUG", "NODE", "STREAM"],
+  ["CTRL", "MINER", "SIGNAL", "CLOUD"],
+  ["CTRL", "DEBUG", "NODE", "ALT"],
+];
 
 const state = {
   currentIndex: 0,
@@ -386,7 +508,9 @@ function goNext() {
 function renderResult() {
   const rawScores = calculateRawScores();
   const normalizedScores = normalizeScores(rawScores);
-  const matched = matchPersona(normalizedScores);
+  const answerPattern = calculateAnswerPattern();
+  const personaVotes = calculatePersonaVotes();
+  const matched = matchPersona(normalizedScores, answerPattern, personaVotes);
   latestResult = { rawScores, normalizedScores, ...matched };
 
   els.resultName.textContent = matched.persona.name;
@@ -409,26 +533,98 @@ function calculateRawScores() {
   return scores;
 }
 
+function calculateAnswerPattern() {
+  const counts = { A: 0, B: 0, C: 0, D: 0 };
+  state.answers.forEach((answerIndex, questionIndex) => {
+    const option = QUESTIONS[questionIndex].options[answerIndex];
+    if (option) counts[option.key] += 1;
+  });
+
+  return Object.fromEntries(
+    Object.entries(counts).map(([key, count]) => [key, Math.round((count / QUESTIONS.length) * 100)])
+  );
+}
+
+function calculatePersonaVotes() {
+  const votes = Object.fromEntries(Object.keys(PERSONAS).map((code) => [code, 0]));
+  state.answers.forEach((answerIndex, questionIndex) => {
+    const code = PERSONA_OPTION_MAP[questionIndex]?.[answerIndex];
+    if (code) votes[code] += 1;
+  });
+
+  return Object.fromEntries(
+    Object.entries(votes).map(([code, count]) => [code, Math.round((count / QUESTIONS.length) * 100)])
+  );
+}
+
 function normalizeScores(rawScores) {
   return Object.fromEntries(
     DIMENSIONS.map(({ key }) => [key, Math.round((rawScores[key] / maxScores[key]) * 100)])
   );
 }
 
-function matchPersona(scores) {
+function matchPersona(
+  scores,
+  answerPattern = calculateAnswerPattern(),
+  personaVotes = calculatePersonaVotes()
+) {
   let best = null;
+  const userAxes = buildAxisVector(scores);
   Object.entries(PERSONAS).forEach(([code, persona]) => {
-    const distance = Math.sqrt(
-      DIMENSIONS.reduce((sum, { key }) => sum + (scores[key] - persona.profile[key]) ** 2, 0)
+    const dimensionDistance = normalizedDistance(
+      DIMENSIONS.map(({ key }) => scores[key] - persona.profile[key]),
+      100
     );
+    const personaAxes = PERSONA_AXES[code] || buildAxisVector(persona.profile);
+    const axisDistance = normalizedDistance(
+      PERSONALITY_AXES.map(({ key }) => userAxes[key] - personaAxes[key]),
+      200
+    );
+    const choiceDistance = normalizedDistance(
+      ["A", "B", "C", "D"].map((key) => answerPattern[key] - PERSONA_CHOICE_PATTERNS[code][key]),
+      100
+    );
+    const voteDistance = 1 - (personaVotes[code] || 0) / 100;
+    const distance =
+      dimensionDistance * MATCH_WEIGHTS.dimensions +
+      axisDistance * MATCH_WEIGHTS.axes +
+      choiceDistance * MATCH_WEIGHTS.choices +
+      voteDistance * MATCH_WEIGHTS.votes;
+
     if (!best || distance < best.distance) {
-      best = { code, persona, distance };
+      best = {
+        code,
+        persona,
+        distance,
+        dimensionDistance,
+        axisDistance,
+        choiceDistance,
+        voteDistance,
+      };
     }
   });
 
-  const maxDistance = Math.sqrt(DIMENSIONS.length * 100 ** 2);
-  const match = Math.max(55, Math.round(100 - (best.distance / maxDistance) * 45));
+  const match = Math.max(58, Math.round(100 - best.distance * 44));
   return { ...best, match };
+}
+
+function buildAxisVector(scores) {
+  return Object.fromEntries(
+    PERSONALITY_AXES.map(({ key, get }) => [key, clamp(get(scores), -100, 100)])
+  );
+}
+
+function axes(order, analysis, action, expression, novelty) {
+  return { ORDER: order, ANALYSIS: analysis, ACTION: action, EXPRESSION: expression, NOVELTY: novelty };
+}
+
+function choices(A, B, C, D) {
+  return { A, B, C, D };
+}
+
+function normalizedDistance(deltas, range) {
+  const rms = Math.sqrt(deltas.reduce((sum, delta) => sum + delta ** 2, 0) / deltas.length);
+  return clamp(rms / range, 0, 1);
 }
 
 function getMaxScores() {
@@ -443,6 +639,14 @@ function getMaxScores() {
 
 function emptyScores() {
   return Object.fromEntries(DIMENSIONS.map(({ key }) => [key, 0]));
+}
+
+function average(...values) {
+  return values.reduce((sum, value) => sum + value, 0) / values.length;
+}
+
+function clamp(value, min, max) {
+  return Math.min(max, Math.max(min, value));
 }
 
 function saveResultImage() {
