@@ -26,6 +26,8 @@ body {
     "Microsoft YaHei", sans-serif;
   color: var(--ink);
   background:
+    linear-gradient(rgba(235, 255, 240, 0.72), rgba(235, 255, 240, 0.74)),
+    url("images/hero-pixel-bg.png") center top / cover fixed no-repeat,
     radial-gradient(circle at 18% 8%, rgba(114, 245, 208, 0.38), transparent 26%),
     radial-gradient(circle at 86% 18%, rgba(156, 255, 87, 0.28), transparent 28%),
     linear-gradient(160deg, #f8fff8 0%, var(--bg) 45%, #d9f4df 100%);
@@ -97,7 +99,8 @@ button {
   gap: 18px;
   position: relative;
   overflow: hidden;
-  padding: 28px 8px;
+  padding: 32px 8px;
+  isolation: isolate;
 }
 
 .page-home::before {
@@ -119,7 +122,7 @@ button {
     18px 152px 0 -10px #0bb76b;
   clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
   image-rendering: pixelated;
-  opacity: 0.76;
+  opacity: 0.5;
 }
 
 .page-home::after {
@@ -137,6 +140,85 @@ button {
   box-shadow: 4px 4px 0 rgba(0, 119, 71, 0.16);
 }
 
+.hero-bg {
+  position: absolute;
+  inset: -18px -18px auto -18px;
+  height: min(72vh, 560px);
+  z-index: -2;
+  background:
+    linear-gradient(180deg, rgba(2, 44, 54, 0.18), rgba(234, 255, 239, 0.22) 58%, rgba(234, 255, 239, 0.92)),
+    url("images/hero-pixel-bg.png") center top / cover no-repeat;
+  border: 4px solid rgba(0, 119, 71, 0.26);
+  box-shadow:
+    0 28px 80px rgba(0, 84, 75, 0.22),
+    inset 0 -80px 90px rgba(234, 255, 239, 0.88);
+  image-rendering: auto;
+}
+
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0 2px, rgba(0, 60, 48, 0.06) 2px 4px),
+    radial-gradient(circle at 50% 28%, transparent 0 22%, rgba(234, 255, 239, 0.24) 55%, rgba(234, 255, 239, 0.82) 100%);
+  mix-blend-mode: screen;
+}
+
+.pixel-fx {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.pixel-fx span {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #f4ff6a;
+  box-shadow:
+    0 0 0 3px rgba(244, 255, 106, 0.22),
+    0 0 22px rgba(244, 255, 106, 0.88);
+  clip-path: polygon(40% 0, 60% 0, 60% 40%, 100% 40%, 100% 60%, 60% 60%, 60% 100%, 40% 100%, 40% 60%, 0 60%, 0 40%, 40% 40%);
+}
+
+.pixel-fx span:nth-child(1) {
+  top: 12%;
+  left: 8%;
+}
+
+.pixel-fx span:nth-child(2) {
+  top: 18%;
+  right: 12%;
+  background: var(--pixel-cyan);
+}
+
+.pixel-fx span:nth-child(3) {
+  top: 42%;
+  left: 4%;
+  transform: scale(0.75);
+}
+
+.pixel-fx span:nth-child(4) {
+  top: 58%;
+  right: 8%;
+  background: var(--pixel-lime);
+}
+
+.pixel-fx span:nth-child(5) {
+  bottom: 18%;
+  left: 18%;
+  transform: scale(0.6);
+}
+
+.pixel-fx span:nth-child(6) {
+  bottom: 26%;
+  right: 24%;
+  background: var(--pixel-cyan);
+  transform: scale(0.7);
+}
+
 .hero-orbit {
   position: absolute;
   inset: 76px 20px auto auto;
@@ -151,7 +233,7 @@ button {
   box-shadow:
     inset 0 0 0 12px rgba(114, 245, 208, 0.14),
     0 0 0 6px rgba(156, 255, 87, 0.12);
-  opacity: 0.58;
+  opacity: 0.42;
   transform: rotate(2deg);
   image-rendering: pixelated;
 }
@@ -163,6 +245,8 @@ button {
   font-weight: 800;
   letter-spacing: 0;
   text-transform: uppercase;
+  position: relative;
+  z-index: 1;
 }
 
 h1,
@@ -179,15 +263,20 @@ h1 {
   line-height: 0.96;
   letter-spacing: 0;
   text-shadow:
+    5px 5px 0 rgba(0, 61, 37, 0.22),
     4px 4px 0 rgba(114, 245, 208, 0.56),
     -2px -2px 0 rgba(156, 255, 87, 0.42);
+  position: relative;
+  z-index: 1;
 }
 
 .hero-copy {
   margin: 0;
-  color: #2c4838;
+  color: #183d33;
   font-size: 17px;
   line-height: 1.75;
+  position: relative;
+  z-index: 1;
 }
 
 .club-panel,
@@ -205,6 +294,8 @@ h1 {
 
 .club-panel {
   padding: 18px;
+  position: relative;
+  z-index: 1;
 }
 
 .club-panel p {

@@ -425,6 +425,8 @@ const els = {
 const maxScores = getMaxScores();
 let latestResult = null;
 
+initMotion();
+
 els.startBtn.addEventListener("click", () => {
   showPage("quiz");
   renderQuestion();
@@ -481,6 +483,8 @@ function renderQuestion() {
       renderQuestion();
     });
   });
+
+  animateQuestionCard();
 }
 
 function goPrev() {
@@ -694,4 +698,70 @@ function showToast(message) {
   showToast.timer = window.setTimeout(() => {
     els.toast.classList.remove("is-visible");
   }, 1800);
+}
+
+function initMotion() {
+  if (!window.gsap) return;
+
+  const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+  if (reduceMotion) return;
+
+  gsap.set([".eyebrow", "h1", ".hero-copy", ".club-panel", "#startBtn"], {
+    y: 18,
+    opacity: 0,
+  });
+
+  gsap
+    .timeline({ defaults: { ease: "power3.out" } })
+    .to(".hero-bg", { scale: 1.03, duration: 0.01 })
+    .to(".eyebrow", { y: 0, opacity: 1, duration: 0.45 })
+    .to("h1", { y: 0, opacity: 1, duration: 0.58 }, "-=0.2")
+    .to(".hero-copy", { y: 0, opacity: 1, duration: 0.48 }, "-=0.22")
+    .to(".club-panel", { y: 0, opacity: 1, duration: 0.48 }, "-=0.2")
+    .to("#startBtn", { y: 0, opacity: 1, duration: 0.42 }, "-=0.18");
+
+  gsap.to(".hero-bg", {
+    backgroundPosition: "52% 2%",
+    duration: 10,
+    repeat: -1,
+    yoyo: true,
+    ease: "sine.inOut",
+  });
+
+  gsap.to(".pixel-fx span", {
+    y: "random(-14, 14)",
+    x: "random(-10, 10)",
+    opacity: "random(0.35, 1)",
+    scale: "random(0.7, 1.25)",
+    duration: "random(1.2, 2.4)",
+    repeat: -1,
+    yoyo: true,
+    ease: "steps(5)",
+    stagger: 0.12,
+  });
+
+  gsap.to("#startBtn", {
+    y: -3,
+    duration: 1.3,
+    repeat: -1,
+    yoyo: true,
+    ease: "sine.inOut",
+  });
+}
+
+function animateQuestionCard() {
+  if (!window.gsap) return;
+  if (window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches) return;
+
+  gsap.fromTo(
+    ".question-card",
+    { y: 8, opacity: 0.72 },
+    { y: 0, opacity: 1, duration: 0.22, ease: "power2.out" }
+  );
+
+  gsap.fromTo(
+    ".option-btn",
+    { x: -8, opacity: 0 },
+    { x: 0, opacity: 1, duration: 0.22, stagger: 0.04, ease: "power2.out" }
+  );
 }
