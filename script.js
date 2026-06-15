@@ -8,10 +8,10 @@ const DIMENSIONS = [
 ];
 
 const MATCH_WEIGHTS = {
-  dimensions: 0.22,
-  axes: 0.36,
-  choices: 0.18,
-  votes: 0.24,
+  dimensions: 0.34,
+  axes: 0.34,
+  choices: 0,
+  votes: 0.32,
 };
 
 const PERSONALITY_AXES = [
@@ -43,185 +43,185 @@ const PERSONALITY_AXES = [
 ];
 
 const QUESTIONS = [
-  q("课程作业刚布置，你会先？", [
-    ["看要求和截止时间", { CONTROL: 2, EXEC: 1 }],
-    ["搞懂评分逻辑", { LOGIC: 2, CONTROL: 1 }],
-    ["找同学组队", { SOCIAL: 2, EXEC: 1 }],
-    ["先想个新主题", { CREATE: 2, RELAX: 1 }],
+  q("早八闹钟响了，你的第一反应？", [
+    ["立刻起，别给机会", { EXEC: 3, CONTROL: 2 }],
+    ["再眯五分钟回血", { RELAX: 3, CREATE: 1 }],
+    ["看眼课表再决定", { LOGIC: 3, CONTROL: 1 }],
+    ["问室友走不走", { SOCIAL: 3, RELAX: 1 }],
   ]),
-  q("明天交小组汇报，你通常？", [
-    ["先赶出初稿", { EXEC: 2, CONTROL: 1 }],
-    ["保住核心内容", { LOGIC: 2, EXEC: 1 }],
-    ["群里同步进度", { SOCIAL: 2, EXEC: 1 }],
-    ["先稳住状态", { RELAX: 2, CONTROL: 1 }],
+  q("小组作业刚建群，你通常会？", [
+    ["先潜水观察阵容", { LOGIC: 2, RELAX: 3 }],
+    ["发个消息暖场", { SOCIAL: 3, CREATE: 1 }],
+    ["直接拉表格分工", { CONTROL: 3, EXEC: 2 }],
+    ["先丢几个新点子", { CREATE: 3, SOCIAL: 1 }],
   ]),
-  q("小组讨论跑偏时，你会？", [
-    ["拉回主题", { CONTROL: 2, SOCIAL: 1 }],
-    ["指出漏洞", { LOGIC: 2, CONTROL: 1 }],
-    ["cue 队友发言", { SOCIAL: 2, RELAX: 1 }],
-    ["补个新脑洞", { CREATE: 2, SOCIAL: 1 }],
+  q("食堂窗口排长队，你会？", [
+    ["果断换一家", { EXEC: 3, RELAX: 2 }],
+    ["研究哪队走得快", { LOGIC: 3, CONTROL: 1 }],
+    ["边排边和朋友聊", { SOCIAL: 3, RELAX: 2 }],
+    ["稳住，就吃这口", { CONTROL: 3, EXEC: 1 }],
   ]),
-  q("活动安排临时变了，你先？", [
-    ["重排流程", { CONTROL: 2, EXEC: 1 }],
-    ["判断影响", { LOGIC: 2, CONTROL: 1 }],
-    ["问大家状态", { SOCIAL: 2, CONTROL: 1 }],
-    ["顺势换玩法", { RELAX: 2, CREATE: 1 }],
+  q("周末突然空出一天，你更想？", [
+    ["临时约人出去玩", { SOCIAL: 3, CREATE: 2 }],
+    ["宅着彻底充电", { RELAX: 4 }],
+    ["完成一件拖很久的事", { EXEC: 3, CONTROL: 2 }],
+    ["随便逛逛找灵感", { CREATE: 3, RELAX: 2 }],
   ]),
-  q("做一个课程小项目，你喜欢？", [
-    ["分工清楚", { CONTROL: 2, EXEC: 1 }],
-    ["逻辑扎实", { LOGIC: 2, CREATE: 1 }],
-    ["边聊边改", { SOCIAL: 2, CREATE: 1 }],
-    ["自由探索", { RELAX: 2, CREATE: 1 }],
+  q("群聊消息突然 99+，你会？", [
+    ["直接问：结论是啥", { EXEC: 2, SOCIAL: 2 }],
+    ["从头爬楼吃瓜", { LOGIC: 3, SOCIAL: 1 }],
+    ["先看置顶和重点", { CONTROL: 3, LOGIC: 2 }],
+    ["当作没看见", { RELAX: 4 }],
   ]),
-  q("资料很多很乱时，你会？", [
-    ["先分类整理", { CONTROL: 2, LOGIC: 1 }],
-    ["找关键规律", { LOGIC: 2, CONTROL: 1 }],
-    ["问懂的人", { SOCIAL: 2, LOGIC: 1 }],
-    ["换个角度看", { CREATE: 2, LOGIC: 1 }],
+  q("DDL 就在今晚，你现在才想起来？", [
+    ["先做能交的版本", { EXEC: 4, CONTROL: 1 }],
+    ["先盘一下最优解", { LOGIC: 3, EXEC: 2 }],
+    ["找队友紧急联动", { SOCIAL: 3, EXEC: 2 }],
+    ["灵感爆发，极限出片", { CREATE: 4, EXEC: 1 }],
   ]),
-  q("社团群突然没人推进，你会？", [
-    ["发待办清单", { CONTROL: 2, EXEC: 1 }],
-    ["找卡点", { LOGIC: 2, EXEC: 1 }],
-    ["活跃一下", { SOCIAL: 2, EXEC: 1 }],
-    ["晚点再说", { RELAX: 2, SOCIAL: 1 }],
+  q("朋友临时放你鸽子，你会？", [
+    ["马上安排自己的局", { RELAX: 3, EXEC: 2 }],
+    ["问清楚发生了什么", { LOGIC: 2, SOCIAL: 2 }],
+    ["嘴上吐槽但没事", { SOCIAL: 3, RELAX: 2 }],
+    ["下次提前确认好", { CONTROL: 3, LOGIC: 1 }],
   ]),
-  q("你觉得高效是？", [
-    ["少返工", { CONTROL: 2, EXEC: 1 }],
-    ["方法对", { LOGIC: 2, CONTROL: 1 }],
-    ["同步快", { SOCIAL: 2, EXEC: 1 }],
-    ["不内耗", { RELAX: 2, EXEC: 1 }],
+  q("选一门完全陌生的选修课，你更看重？", [
+    ["老师给分稳不稳", { LOGIC: 3, CONTROL: 2 }],
+    ["有没有朋友一起", { SOCIAL: 3, RELAX: 1 }],
+    ["内容听着就有趣", { CREATE: 3, RELAX: 2 }],
+    ["能不能学到真东西", { EXEC: 3, LOGIC: 2 }],
   ]),
-  q("第一次用新工具，你会？", [
-    ["看教程", { EXEC: 2, CONTROL: 1 }],
-    ["研究原理", { LOGIC: 2, CREATE: 1 }],
-    ["问同学", { SOCIAL: 2, EXEC: 1 }],
-    ["直接试", { CREATE: 2, RELAX: 1 }],
+  q("宿舍要一起大扫除，你通常？", [
+    ["先分区域，速战速决", { CONTROL: 3, EXEC: 3 }],
+    ["看到哪收拾到哪", { RELAX: 3, EXEC: 1 }],
+    ["放歌聊天带气氛", { SOCIAL: 3, CREATE: 1 }],
+    ["研究最省力的办法", { LOGIC: 3, CREATE: 1 }],
   ]),
-  q("最让你难受的是？", [
-    ["没人负责", { CONTROL: 2, EXEC: 1 }],
-    ["逻辑不通", { LOGIC: 2, CONTROL: 1 }],
-    ["信息不同步", { SOCIAL: 2, CONTROL: 1 }],
-    ["一直被催", { RELAX: 2, CONTROL: 1 }],
+  q("看到一个很火的新梗，你会？", [
+    ["先围观，不急着跟", { LOGIC: 2, RELAX: 2 }],
+    ["立刻发给朋友", { SOCIAL: 3, EXEC: 1 }],
+    ["二创一下才好玩", { CREATE: 4, SOCIAL: 1 }],
+    ["三分钟热度，划走", { RELAX: 3, EXEC: 1 }],
   ]),
-  q("做完一个作品，你最看重？", [
-    ["过程稳", { CONTROL: 2, LOGIC: 1 }],
-    ["结论硬", { LOGIC: 2, EXEC: 1 }],
-    ["合作舒服", { SOCIAL: 2, RELAX: 1 }],
-    ["有亮点", { CREATE: 2, EXEC: 1 }],
+  q("旅行前一天，你更像哪种人？", [
+    ["攻略表格全配齐", { CONTROL: 4, LOGIC: 2 }],
+    ["只定车票，其他随缘", { RELAX: 4, CREATE: 1 }],
+    ["拉群问大家想去哪", { SOCIAL: 3, CONTROL: 1 }],
+    ["专找小众隐藏玩法", { CREATE: 3, LOGIC: 2 }],
   ]),
-  q("同学最可能说你？", [
-    ["很靠谱", { EXEC: 2, CONTROL: 1 }],
-    ["很清醒", { LOGIC: 2, CONTROL: 1 }],
-    ["很好相处", { SOCIAL: 2, RELAX: 1 }],
-    ["点子很多", { CREATE: 2, LOGIC: 1 }],
+  q("课堂上老师突然点你回答？", [
+    ["先说起来再调整", { EXEC: 3, SOCIAL: 2 }],
+    ["脑内快速组织逻辑", { LOGIC: 4, CONTROL: 1 }],
+    ["用轻松方式化解", { SOCIAL: 3, RELAX: 2 }],
+    ["给个不一样的角度", { CREATE: 3, LOGIC: 2 }],
   ]),
-  q("负责社团招新，你先做？", [
-    ["排流程", { CONTROL: 2, EXEC: 1 }],
-    ["定人群", { LOGIC: 2, CONTROL: 1 }],
-    ["拉队友", { SOCIAL: 2, EXEC: 1 }],
-    ["想爆点", { CREATE: 2, SOCIAL: 1 }],
+  q("社团活动现场有点乱，你会？", [
+    ["先把关键流程稳住", { CONTROL: 4, EXEC: 2 }],
+    ["哪里缺人就补哪里", { EXEC: 4, SOCIAL: 1 }],
+    ["招呼大家别紧张", { SOCIAL: 3, RELAX: 2 }],
+    ["临场加点新玩法", { CREATE: 3, RELAX: 1 }],
   ]),
-  q("压力上来时，你会？", [
-    ["整理待办", { CONTROL: 2, EXEC: 1 }],
-    ["复盘原因", { LOGIC: 2, CONTROL: 1 }],
-    ["找人聊聊", { SOCIAL: 2, RELAX: 1 }],
-    ["先离线", { RELAX: 2, CONTROL: 1 }],
+  q("朋友说自己最近很焦虑，你会？", [
+    ["陪着聊，先接住情绪", { SOCIAL: 4, RELAX: 1 }],
+    ["一起分析问题在哪", { LOGIC: 3, SOCIAL: 2 }],
+    ["帮他列个行动清单", { CONTROL: 3, EXEC: 2 }],
+    ["拉他出去散散心", { RELAX: 3, CREATE: 1 }],
   ]),
-  q("四个任务里，你想接？", [
-    ["现场统筹", { CONTROL: 2, EXEC: 1 }],
-    ["数据分析", { LOGIC: 2, CREATE: 1 }],
-    ["对外联络", { SOCIAL: 2, EXEC: 1 }],
-    ["海报文案", { CREATE: 2, RELAX: 1 }],
+  q("买一件稍贵的东西前，你会？", [
+    ["做攻略比参数", { LOGIC: 4, CONTROL: 1 }],
+    ["问朋友真实体验", { SOCIAL: 3, LOGIC: 1 }],
+    ["喜欢就冲，快乐重要", { RELAX: 3, EXEC: 2 }],
+    ["等等活动价再下手", { CONTROL: 3, RELAX: 1 }],
   ]),
-  q("团队卡住时，你更常补哪一块？", [
-    ["整理流程", { CONTROL: 2, LOGIC: 1 }],
-    ["理清问题", { LOGIC: 2, CONTROL: 1 }],
-    ["协调资源", { SOCIAL: 2, CREATE: 1 }],
-    ["增加亮点", { CREATE: 2, SOCIAL: 1 }],
+  q("别人对你的方案提出质疑，你会？", [
+    ["先听完再回应", { RELAX: 2, LOGIC: 2 }],
+    ["拿事实把逻辑讲清", { LOGIC: 4, CONTROL: 1 }],
+    ["马上改出更好版本", { EXEC: 3, CREATE: 2 }],
+    ["拉大家一起讨论", { SOCIAL: 3, CREATE: 1 }],
   ]),
-  q("低电量还要交作业，你会？", [
-    ["先交再说", { EXEC: 2, CONTROL: 1 }],
-    ["分析卡点", { LOGIC: 2, RELAX: 1 }],
-    ["找人吐槽", { SOCIAL: 2, RELAX: 1 }],
-    ["休息回血", { RELAX: 2, EXEC: 1 }],
+  q("你发朋友圈更像哪种状态？", [
+    ["想到就发，随缘营业", { RELAX: 3, SOCIAL: 1 }],
+    ["认真挑图和文案", { CREATE: 3, CONTROL: 2 }],
+    ["记录值得纪念的事", { CONTROL: 2, SOCIAL: 2 }],
+    ["很少发，默默围观", { LOGIC: 2, RELAX: 3 }],
   ]),
-  q("队友提出新点子，你会？", [
-    ["想怎么落地", { EXEC: 2, CONTROL: 1 }],
-    ["判断可不可行", { LOGIC: 2, CONTROL: 1 }],
-    ["一起聊开", { SOCIAL: 2, CREATE: 1 }],
-    ["先别收束", { CREATE: 2, RELAX: 1 }],
+  q("一件事迟迟没有进展，你会？", [
+    ["直接开干，边做边说", { EXEC: 4, CREATE: 1 }],
+    ["找出真正卡点", { LOGIC: 4, CONTROL: 1 }],
+    ["拉人一起推进", { SOCIAL: 3, EXEC: 2 }],
+    ["先缓缓，换个状态", { RELAX: 4 }],
   ]),
-  q("如果你是一个系统部件，你像？", [
-    ["控制台", { CONTROL: 2, EXEC: 1 }],
-    ["分析核", { LOGIC: 2, CREATE: 1 }],
-    ["连接节点", { SOCIAL: 2, LOGIC: 1 }],
-    ["云端草稿箱", { CREATE: 2, RELAX: 1 }],
+  q("老师给了一个很自由的作业，你会？", [
+    ["先确认边界和要求", { CONTROL: 3, LOGIC: 2 }],
+    ["搞个别人没做过的", { CREATE: 4, EXEC: 1 }],
+    ["找搭子一起整活", { SOCIAL: 3, CREATE: 2 }],
+    ["选个简单稳妥的", { RELAX: 2, EXEC: 2 }],
   ]),
-  q("听到离谱方案，你会？", [
-    ["拉回现实", { CONTROL: 2, EXEC: 1 }],
-    ["指出风险", { LOGIC: 2, CONTROL: 1 }],
-    ["听听大家", { SOCIAL: 2, LOGIC: 1 }],
-    ["先保留", { CREATE: 2, RELAX: 1 }],
+  q("陌生人很多的聚会里，你通常？", [
+    ["主动认识新朋友", { SOCIAL: 4, EXEC: 1 }],
+    ["和熟人待在一起", { RELAX: 3, SOCIAL: 1 }],
+    ["先观察谁比较有趣", { LOGIC: 3, CREATE: 1 }],
+    ["帮忙张罗现场", { CONTROL: 3, EXEC: 2 }],
   ]),
-  q("学一个新方向，你先？", [
-    ["列路线", { CONTROL: 2, EXEC: 1 }],
-    ["看知识图谱", { LOGIC: 2, CONTROL: 1 }],
-    ["找同伴学", { SOCIAL: 2, EXEC: 1 }],
-    ["从案例入手", { CREATE: 2, RELAX: 1 }],
+  q("学习一个新软件时，你会？", [
+    ["跟着教程快速做一遍", { EXEC: 4, CONTROL: 1 }],
+    ["先搞懂它怎么运作", { LOGIC: 4, CREATE: 1 }],
+    ["边点边试，主打探索", { CREATE: 3, RELAX: 2 }],
+    ["找会的人带一下", { SOCIAL: 3, EXEC: 1 }],
   ]),
-  q("做测试网页，你先管？", [
-    ["页面流程", { CONTROL: 2, LOGIC: 1 }],
-    ["计分规则", { LOGIC: 2, EXEC: 1 }],
-    ["人员分工", { SOCIAL: 2, CONTROL: 1 }],
-    ["视觉风格", { CREATE: 2, SOCIAL: 1 }],
+  q("计划被临时打乱，你的反应？", [
+    ["马上重新安排", { CONTROL: 4, EXEC: 2 }],
+    ["问题不大，随机应变", { RELAX: 4, CREATE: 1 }],
+    ["先确认对大家的影响", { SOCIAL: 3, CONTROL: 2 }],
+    ["趁机换个更好的方案", { CREATE: 3, LOGIC: 2 }],
   ]),
-  q("你觉得项目稳定是？", [
-    ["步骤清楚", { CONTROL: 2, EXEC: 1 }],
-    ["逻辑闭环", { LOGIC: 2, CONTROL: 1 }],
-    ["沟通顺畅", { SOCIAL: 2, RELAX: 1 }],
-    ["能灵活改", { RELAX: 2, CREATE: 1 }],
+  q("团队里出现两种意见，你会？", [
+    ["分析利弊再选", { LOGIC: 4, CONTROL: 1 }],
+    ["投票，少内耗", { CONTROL: 3, EXEC: 2 }],
+    ["想办法融合一下", { CREATE: 3, SOCIAL: 2 }],
+    ["先让双方都说舒服", { SOCIAL: 4, RELAX: 1 }],
   ]),
-  q("刷到哪类内容会停下？", [
-    ["效率工具", { CONTROL: 2, EXEC: 1 }],
-    ["工具原理", { LOGIC: 2, CREATE: 1 }],
-    ["社团故事", { SOCIAL: 2, EXEC: 1 }],
-    ["创意作品", { CREATE: 2, RELAX: 1 }],
+  q("连续忙了很久，你最需要？", [
+    ["独处放空，暂停营业", { RELAX: 4 }],
+    ["和朋友狠狠吐槽", { SOCIAL: 3, RELAX: 2 }],
+    ["完成收尾再休息", { EXEC: 4, CONTROL: 1 }],
+    ["换件新鲜的事做", { CREATE: 3, RELAX: 2 }],
   ]),
-  q("同类问题反复出现，你会？", [
-    ["做模板", { CONTROL: 2, EXEC: 1 }],
-    ["找根因", { LOGIC: 2, EXEC: 1 }],
-    ["同步大家", { SOCIAL: 2, CONTROL: 1 }],
-    ["换方法", { CREATE: 2, RELAX: 1 }],
+  q("看到别人做出很厉害的作品，你会？", [
+    ["拆解它为什么厉害", { LOGIC: 4, CREATE: 1 }],
+    ["收藏，改天也做一个", { CONTROL: 2, EXEC: 2 }],
+    ["真诚夸夸并求交流", { SOCIAL: 4, CREATE: 1 }],
+    ["被激发出一个新脑洞", { CREATE: 4, RELAX: 1 }],
   ]),
-  q("你的隐藏优势更像？", [
-    ["收拾局面", { CONTROL: 2, EXEC: 1 }],
-    ["讲清问题", { LOGIC: 2, CONTROL: 1 }],
-    ["连接人脉", { SOCIAL: 2, CREATE: 1 }],
-    ["制造趣味", { CREATE: 2, RELAX: 1 }],
+  q("你接手一个烂摊子时，通常？", [
+    ["先救最急的部分", { EXEC: 4, CONTROL: 2 }],
+    ["先搞清楚怎么烂的", { LOGIC: 4, CONTROL: 1 }],
+    ["找齐人和资源", { SOCIAL: 3, EXEC: 2 }],
+    ["干脆换个新解法", { CREATE: 4, RELAX: 1 }],
   ]),
-  q("团队有冲突时，你会？", [
-    ["定边界", { CONTROL: 2, LOGIC: 1 }],
-    ["拆原因", { LOGIC: 2, SOCIAL: 1 }],
-    ["缓气氛", { SOCIAL: 2, RELAX: 1 }],
-    ["先暂停", { RELAX: 2, SOCIAL: 1 }],
+  q("朋友临时喊你出门，你更可能？", [
+    ["说走就走", { RELAX: 3, EXEC: 2 }],
+    ["先问都有谁", { SOCIAL: 3, LOGIC: 1 }],
+    ["看完今天安排再说", { CONTROL: 3, LOGIC: 2 }],
+    ["顺便提个有趣去处", { CREATE: 3, SOCIAL: 2 }],
   ]),
-  q("合作后，你希望别人记住？", [
-    ["靠得住", { CONTROL: 2, EXEC: 1 }],
-    ["判断准", { LOGIC: 2, CONTROL: 1 }],
-    ["好沟通", { SOCIAL: 2, RELAX: 1 }],
-    ["有想法", { CREATE: 2, RELAX: 1 }],
+  q("做完一件大事后，你会？", [
+    ["马上开启下一件", { EXEC: 4, CONTROL: 1 }],
+    ["复盘哪里还能更好", { LOGIC: 4, CONTROL: 2 }],
+    ["找大家庆祝一下", { SOCIAL: 4, RELAX: 1 }],
+    ["彻底躺平几天", { RELAX: 4 }],
   ]),
-  q("遇到陌生概念，你会？", [
-    ["查路线", { CONTROL: 2, EXEC: 1 }],
-    ["看概念关系", { LOGIC: 2, CONTROL: 1 }],
-    ["问学长学姐", { SOCIAL: 2, EXEC: 1 }],
-    ["先试个案例", { CREATE: 2, RELAX: 1 }],
+  q("大家最常因为什么来找你？", [
+    ["帮忙把事情落地", { EXEC: 4, CONTROL: 1 }],
+    ["帮忙分析和判断", { LOGIC: 4, CONTROL: 1 }],
+    ["帮忙沟通和组局", { SOCIAL: 4, EXEC: 1 }],
+    ["帮忙想点新花样", { CREATE: 4, SOCIAL: 1 }],
   ]),
-  q("你的做事台词更像？", [
-    ["先摆正局面", { CONTROL: 2, EXEC: 1 }],
-    ["先想清楚", { LOGIC: 2, CONTROL: 1 }],
-    ["先对上频", { SOCIAL: 2, EXEC: 1 }],
-    ["先留可能", { CREATE: 2, RELAX: 1 }],
+  q("哪句话最像你的生活态度？", [
+    ["先把局面稳住", { CONTROL: 4, EXEC: 2 }],
+    ["想清楚再行动", { LOGIC: 4, CONTROL: 1 }],
+    ["人对了事就顺了", { SOCIAL: 4, RELAX: 1 }],
+    ["人生需要一点抽象", { CREATE: 4, RELAX: 2 }],
   ]),
 ];
 
@@ -363,36 +363,36 @@ const PERSONA_CHOICE_PATTERNS = {
 };
 
 const PERSONA_OPTION_MAP = [
-  ["CTRL", "PROMPT", "NODE", "GLITCH"],
-  ["OVERCLK", "DEBUG", "PATCH", "LOWBAT"],
-  ["CTRL", "DEBUG", "SIGNAL", "STREAM"],
-  ["PATCH", "MINER", "AGENT", "CLOUD"],
-  ["CTRL", "PROMPT", "SIGNAL", "ALT"],
-  ["CTRL", "MINER", "NODE", "ALT"],
-  ["PATCH", "DEBUG", "NODE", "AFK"],
-  ["PATCH", "MINER", "AGENT", "LOWBAT"],
-  ["PATCH", "PROMPT", "NODE", "GLITCH"],
-  ["CTRL", "DEBUG", "SIGNAL", "AFK"],
-  ["CTRL", "MINER", "NODE", "STREAM"],
-  ["PATCH", "DEBUG", "SIGNAL", "GLITCH"],
-  ["CTRL", "PROMPT", "NODE", "STREAM"],
-  ["CTRL", "DEBUG", "SIGNAL", "LOWBAT"],
-  ["PATCH", "MINER", "NODE", "STREAM"],
-  ["CTRL", "DEBUG", "AGENT", "GLITCH"],
-  ["OVERCLK", "GHOST", "SIGNAL", "AFK"],
-  ["PATCH", "DEBUG", "PROMPT", "CLOUD"],
-  ["CTRL", "PROMPT", "NODE", "CLOUD"],
-  ["PATCH", "DEBUG", "SIGNAL", "ALT"],
-  ["CTRL", "MINER", "NODE", "CLOUD"],
-  ["CTRL", "PROMPT", "AGENT", "STREAM"],
-  ["CTRL", "DEBUG", "SIGNAL", "CLOUD"],
-  ["PATCH", "PROMPT", "NODE", "STREAM"],
-  ["CTRL", "MINER", "AGENT", "ALT"],
-  ["CTRL", "DEBUG", "NODE", "GLITCH"],
-  ["CTRL", "GHOST", "SIGNAL", "AFK"],
-  ["PATCH", "DEBUG", "NODE", "STREAM"],
-  ["CTRL", "MINER", "SIGNAL", "CLOUD"],
-  ["CTRL", "DEBUG", "NODE", "ALT"],
+  [["OVERCLK", "PATCH"], ["LOWBAT", "AFK"], ["DEBUG", "CTRL"], ["NODE", "SIGNAL"]],
+  [["GHOST", "AFK"], ["SIGNAL", "NODE"], ["CTRL", "AGENT"], ["PROMPT", "STREAM"]],
+  [["PATCH", "LOWBAT"], ["MINER", "DEBUG"], ["NODE", "SIGNAL"], ["CTRL", "PATCH"]],
+  [["STREAM", "NODE"], ["AFK", "LOWBAT"], ["PATCH", "AGENT"], ["CLOUD", "ALT"]],
+  [["AGENT", "NODE"], ["MINER", "GHOST"], ["CTRL", "DEBUG"], ["AFK", "LOWBAT"]],
+  [["PATCH", "OVERCLK"], ["DEBUG", "MINER"], ["AGENT", "NODE"], ["STREAM", "GLITCH"]],
+  [["ALT", "LOWBAT"], ["PROMPT", "SIGNAL"], ["SIGNAL", "NODE"], ["CTRL", "DEBUG"]],
+  [["DEBUG", "CTRL"], ["NODE", "SIGNAL"], ["CLOUD", "GLITCH"], ["MINER", "PATCH"]],
+  [["CTRL", "AGENT"], ["AFK", "CLOUD"], ["STREAM", "SIGNAL"], ["DEBUG", "PROMPT"]],
+  [["GHOST", "DEBUG"], ["SIGNAL", "NODE"], ["GLITCH", "STREAM"], ["CLOUD", "AFK"]],
+  [["CTRL", "DEBUG"], ["CLOUD", "AFK"], ["NODE", "SIGNAL"], ["ALT", "MINER"]],
+  [["AGENT", "OVERCLK"], ["DEBUG", "MINER"], ["SIGNAL", "STREAM"], ["PROMPT", "ALT"]],
+  [["CTRL", "AGENT"], ["PATCH", "OVERCLK"], ["SIGNAL", "NODE"], ["GLITCH", "STREAM"]],
+  [["SIGNAL", "NODE"], ["DEBUG", "PROMPT"], ["CTRL", "AGENT"], ["LOWBAT", "CLOUD"]],
+  [["DEBUG", "MINER"], ["NODE", "SIGNAL"], ["OVERCLK", "STREAM"], ["CTRL", "LOWBAT"]],
+  [["GHOST", "DEBUG"], ["DEBUG", "MINER"], ["PATCH", "AGENT"], ["PROMPT", "NODE"]],
+  [["CLOUD", "AFK"], ["STREAM", "GLITCH"], ["CTRL", "SIGNAL"], ["GHOST", "LOWBAT"]],
+  [["OVERCLK", "PATCH"], ["DEBUG", "MINER"], ["AGENT", "NODE"], ["AFK", "LOWBAT"]],
+  [["CTRL", "DEBUG"], ["GLITCH", "ALT"], ["STREAM", "NODE"], ["LOWBAT", "PATCH"]],
+  [["STREAM", "NODE"], ["LOWBAT", "AFK"], ["GHOST", "MINER"], ["AGENT", "CTRL"]],
+  [["PATCH", "AGENT"], ["DEBUG", "MINER"], ["GLITCH", "CLOUD"], ["NODE", "SIGNAL"]],
+  [["CTRL", "AGENT"], ["CLOUD", "AFK"], ["SIGNAL", "NODE"], ["ALT", "GLITCH"]],
+  [["DEBUG", "MINER"], ["CTRL", "PATCH"], ["PROMPT", "NODE"], ["SIGNAL", "AFK"]],
+  [["AFK", "LOWBAT"], ["SIGNAL", "NODE"], ["OVERCLK", "PATCH"], ["CLOUD", "GLITCH"]],
+  [["DEBUG", "MINER"], ["CTRL", "PATCH"], ["SIGNAL", "STREAM"], ["PROMPT", "GLITCH"]],
+  [["PATCH", "AGENT"], ["DEBUG", "MINER"], ["NODE", "SIGNAL"], ["ALT", "GLITCH"]],
+  [["OVERCLK", "CLOUD"], ["NODE", "SIGNAL"], ["CTRL", "DEBUG"], ["PROMPT", "STREAM"]],
+  [["OVERCLK", "PATCH"], ["DEBUG", "MINER"], ["STREAM", "NODE"], ["AFK", "LOWBAT"]],
+  [["PATCH", "AGENT"], ["DEBUG", "MINER"], ["NODE", "SIGNAL"], ["PROMPT", "GLITCH"]],
+  [["CTRL", "AGENT"], ["DEBUG", "MINER"], ["NODE", "SIGNAL"], ["GLITCH", "CLOUD"]],
 ];
 
 const state = {
@@ -420,12 +420,15 @@ const els = {
   shareBtn: document.querySelector("#shareBtn"),
   restartBtn: document.querySelector("#restartBtn"),
   toast: document.querySelector("#toast"),
+  heroParticles: document.querySelector("#heroParticles"),
+  dynamicHeroText: document.querySelector("#dynamicHeroText"),
 };
 
 const maxScores = getMaxScores();
 let latestResult = null;
 
 initMotion();
+initHeroExperience();
 
 els.startBtn.addEventListener("click", () => {
   showPage("quiz");
@@ -551,13 +554,32 @@ function calculateAnswerPattern() {
 
 function calculatePersonaVotes() {
   const votes = Object.fromEntries(Object.keys(PERSONAS).map((code) => [code, 0]));
+  const opportunities = Object.fromEntries(Object.keys(PERSONAS).map((code) => [code, 0]));
+
+  PERSONA_OPTION_MAP.forEach((options) => {
+    Object.keys(PERSONAS).forEach((code) => {
+      const bestAffinity = Math.max(
+        ...options.map((affinities) => {
+          const rank = affinities.indexOf(code);
+          return rank === 0 ? 1 : rank === 1 ? 0.55 : 0;
+        })
+      );
+      opportunities[code] += bestAffinity;
+    });
+  });
+
   state.answers.forEach((answerIndex, questionIndex) => {
-    const code = PERSONA_OPTION_MAP[questionIndex]?.[answerIndex];
-    if (code) votes[code] += 1;
+    const affinities = PERSONA_OPTION_MAP[questionIndex]?.[answerIndex] || [];
+    affinities.forEach((code, rank) => {
+      votes[code] += rank === 0 ? 1 : 0.55;
+    });
   });
 
   return Object.fromEntries(
-    Object.entries(votes).map(([code, count]) => [code, Math.round((count / QUESTIONS.length) * 100)])
+    Object.entries(votes).map(([code, count]) => [
+      code,
+      Math.round((count / Math.max(opportunities[code], 1)) * 100),
+    ])
   );
 }
 
@@ -706,26 +728,58 @@ function initMotion() {
   const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
   if (reduceMotion) return;
 
-  gsap.set([".eyebrow", "h1", ".hero-copy", ".club-panel", "#startBtn"], {
+  gsap.set([".eyebrow", "h1", ".hero-subtitle", ".hero-copy", ".club-panel", "#startBtn"], {
     y: 18,
     opacity: 0,
   });
+  gsap.set([".floating-island", ".hud-card", ".center-core"], { opacity: 0, y: 18 });
 
   gsap
     .timeline({ defaults: { ease: "power3.out" } })
-    .to(".hero-bg", { scale: 1.03, duration: 0.01 })
+    .to(".hero-bg", { opacity: 1, duration: 0.01 })
+    .to(".hud-card", { y: 0, opacity: 1, duration: 0.42, stagger: 0.08 })
+    .to(".floating-island", { y: 0, opacity: 1, duration: 0.48, stagger: 0.1 }, "-=0.2")
+    .to(".center-core", { y: 0, opacity: 1, duration: 0.4 }, "-=0.18")
     .to(".eyebrow", { y: 0, opacity: 1, duration: 0.45 })
     .to("h1", { y: 0, opacity: 1, duration: 0.58 }, "-=0.2")
-    .to(".hero-copy", { y: 0, opacity: 1, duration: 0.48 }, "-=0.22")
+    .to(".hero-subtitle", { y: 0, opacity: 1, duration: 0.36 }, "-=0.28")
+    .to(".hero-copy", { y: 0, opacity: 1, duration: 0.48 }, "-=0.18")
     .to(".club-panel", { y: 0, opacity: 1, duration: 0.48 }, "-=0.2")
     .to("#startBtn", { y: 0, opacity: 1, duration: 0.42 }, "-=0.18");
 
-  gsap.to(".hero-bg", {
-    backgroundPosition: "52% 2%",
-    duration: 10,
+  gsap.to(".floating-island", {
+    y: -8,
+    duration: 2.6,
     repeat: -1,
     yoyo: true,
     ease: "sine.inOut",
+    stagger: 0.28,
+  });
+
+  gsap.to(".bot", {
+    y: -4,
+    duration: 1.4,
+    repeat: -1,
+    yoyo: true,
+    ease: "steps(4)",
+    stagger: 0.2,
+  });
+
+  gsap.to(".center-core", {
+    filter: "drop-shadow(0 0 18px rgba(156, 255, 87, 0.95))",
+    scale: 1.04,
+    duration: 1.2,
+    repeat: -1,
+    yoyo: true,
+    ease: "sine.inOut",
+  });
+
+  gsap.to(".circuit-lines", {
+    opacity: 0.32,
+    duration: 1.1,
+    repeat: -1,
+    yoyo: true,
+    ease: "steps(4)",
   });
 
   gsap.to(".pixel-fx span", {
@@ -764,4 +818,147 @@ function animateQuestionCard() {
     { x: -8, opacity: 0 },
     { x: 0, opacity: 1, duration: 0.22, stagger: 0.04, ease: "power2.out" }
   );
+}
+
+function initHeroExperience() {
+  const home = els.homePage;
+  const canvas = els.heroParticles;
+  const dynamicText = els.dynamicHeroText;
+  if (!home || !canvas || !dynamicText) return;
+
+  const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+  const phrases = [
+    "正在连接你的数智人格...",
+    "捕捉校园里的隐藏信号",
+    "你的脑回路，准备加载",
+    "CTRL、STREAM，还是隐藏款？",
+    "扫描完成前，保持一点好奇",
+  ];
+  let phraseIndex = 0;
+  let textTimer = null;
+  const pointer = { x: 0, y: 0, active: false };
+
+  const rotateText = () => {
+    phraseIndex = (phraseIndex + 1) % phrases.length;
+    dynamicText.classList.remove("is-changing");
+    requestAnimationFrame(() => {
+      dynamicText.classList.add("is-changing");
+      dynamicText.textContent = phrases[phraseIndex];
+    });
+    textTimer = window.setTimeout(rotateText, 2600);
+  };
+
+  if (!reduceMotion) textTimer = window.setTimeout(rotateText, 2200);
+
+  home.addEventListener("pointermove", (event) => {
+    if (reduceMotion || !home.classList.contains("is-active")) return;
+    const rect = home.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+    pointer.x = event.clientX - rect.left;
+    pointer.y = event.clientY - rect.top;
+    pointer.active = true;
+    home.style.setProperty("--hero-shift-x", `${x * -10}px`);
+    home.style.setProperty("--hero-shift-y", `${y * -7}px`);
+  });
+
+  home.addEventListener("pointerleave", () => {
+    pointer.active = false;
+    home.style.setProperty("--hero-shift-x", "0px");
+    home.style.setProperty("--hero-shift-y", "0px");
+  });
+
+  home.addEventListener("pointerdown", (event) => {
+    const rect = home.getBoundingClientRect();
+    const clickX = event.clientX - rect.left;
+    const clickY = event.clientY - rect.top;
+    particles.forEach((particle) => {
+      const dx = particle.x - clickX;
+      const dy = particle.y - clickY;
+      const distance = Math.max(Math.hypot(dx, dy), 1);
+      if (distance < 260) {
+        particle.x += (dx / distance) * (260 - distance) * 0.09;
+        particle.y += (dy / distance) * (260 - distance) * 0.09;
+      }
+    });
+  });
+
+  els.startBtn.addEventListener("pointerdown", () => home.classList.add("is-interacting"));
+  window.addEventListener("pointerup", () => home.classList.remove("is-interacting"));
+
+  if (reduceMotion) return;
+
+  const context = canvas.getContext("2d", { alpha: true });
+  if (!context) return;
+
+  let width = 0;
+  let height = 0;
+  let particles = [];
+  let lastFrame = 0;
+  let animationFrame = 0;
+
+  const createParticle = () => ({
+    x: Math.random() * width,
+    y: Math.random() * height,
+    size: Math.random() > 0.78 ? 3 : 2,
+    speed: 0.12 + Math.random() * 0.32,
+    drift: (Math.random() - 0.5) * 0.12,
+    alpha: 0.25 + Math.random() * 0.55,
+    tone: Math.random() > 0.35 ? "223,255,98" : "114,245,208",
+  });
+
+  const resizeParticles = () => {
+    const rect = home.getBoundingClientRect();
+    const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
+    width = Math.max(1, Math.round(rect.width));
+    height = Math.max(1, Math.round(rect.height));
+    canvas.width = Math.round(width * ratio);
+    canvas.height = Math.round(height * ratio);
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+    context.setTransform(ratio, 0, 0, ratio, 0, 0);
+    const count = width < 600 ? 20 : 42;
+    particles = Array.from({ length: count }, createParticle);
+  };
+
+  const drawParticles = (time) => {
+    animationFrame = requestAnimationFrame(drawParticles);
+    if (!home.classList.contains("is-active") || document.hidden || time - lastFrame < 33) return;
+    lastFrame = time;
+    context.clearRect(0, 0, width, height);
+
+    particles.forEach((particle) => {
+      particle.y -= particle.speed;
+      particle.x += particle.drift;
+      if (pointer.active) {
+        const dx = particle.x - pointer.x;
+        const dy = particle.y - pointer.y;
+        const distance = Math.max(Math.hypot(dx, dy), 1);
+        if (distance < 92) {
+          particle.x += (dx / distance) * 0.65;
+          particle.y += (dy / distance) * 0.65;
+        }
+      }
+      if (particle.y < -8) {
+        particle.y = height + 8;
+        particle.x = Math.random() * width;
+      }
+
+      context.fillStyle = `rgba(${particle.tone},${particle.alpha})`;
+      context.fillRect(Math.round(particle.x), Math.round(particle.y), particle.size, particle.size);
+      if (particle.size > 2) {
+        context.fillRect(Math.round(particle.x - 3), Math.round(particle.y + 1), 2, 1);
+        context.fillRect(Math.round(particle.x + 4), Math.round(particle.y + 1), 2, 1);
+      }
+    });
+  };
+
+  resizeParticles();
+  window.addEventListener("resize", resizeParticles, { passive: true });
+  animationFrame = requestAnimationFrame(drawParticles);
+
+  window.addEventListener("beforeunload", () => {
+    window.clearTimeout(textTimer);
+    cancelAnimationFrame(animationFrame);
+  });
 }

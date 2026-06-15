@@ -4,12 +4,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NXT 数智人格测试</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css?v=11" />
   </head>
   <body>
     <main class="app-shell">
       <section id="homePage" class="page page-home is-active">
-        <div class="hero-bg" aria-hidden="true"></div>
+        <canvas id="heroParticles" class="hero-particles" aria-hidden="true"></canvas>
+        <div class="hero-live-copy" aria-live="polite">
+          <span class="live-status"><i></i>NXT SIGNAL ONLINE</span>
+          <strong id="dynamicHeroText">正在连接你的数智人格...</strong>
+          <small>移动光标探索数智农场</small>
+        </div>
+        <div class="hero-bg" aria-hidden="true">
+          <div class="circuit-lines"></div>
+          <div class="pixel-cloud cloud-left"></div>
+          <div class="pixel-cloud cloud-right"></div>
+          <div class="floating-island island-left">
+            <span class="farm-grid"></span>
+            <span class="bot bot-left"></span>
+            <span class="waterfall"></span>
+          </div>
+          <div class="floating-island island-right">
+            <span class="greenhouse"></span>
+            <span class="bot bot-right"></span>
+            <span class="waterfall"></span>
+          </div>
+          <div class="center-core">
+            <span></span>
+          </div>
+          <div class="drone drone-left"></div>
+          <div class="drone drone-right"></div>
+          <div class="hud-card hud-left">逻辑 · 结构</div>
+          <div class="hud-card hud-right">连接 · 共创</div>
+        </div>
         <div class="pixel-fx" aria-hidden="true">
           <span></span>
           <span></span>
@@ -18,9 +45,9 @@
           <span></span>
           <span></span>
         </div>
-        <div class="hero-orbit" aria-hidden="true"></div>
-        <p class="eyebrow">安徽农业大学 · 农芯数智社</p>
-        <h1>NXT 数智人格测试</h1>
+        <p class="eyebrow hero-badge">安徽农业大学 · 农芯数智社</p>
+        <h1><span>NXT</span> 数智人格测试</h1>
+        <p class="hero-subtitle">探索你的数智人格</p>
         <p class="hero-copy">
           用 30 道校园数字化情境题，定位你的数智人格原型。你会是控场的 CTRL、灵感流 STREAM，还是低电量但稳定输出的 LOWBAT？
         </p>
@@ -34,6 +61,12 @@
 
       <section id="quizPage" class="page page-quiz" aria-live="polite">
         <div class="scene-bg" aria-hidden="true"></div>
+        <div class="quiz-decor-layer" aria-hidden="true">
+          <span class="quiz-emblem quiz-emblem-seed"></span>
+          <span class="quiz-emblem quiz-emblem-node"></span>
+          <span class="quiz-circuit quiz-circuit-left"></span>
+          <span class="quiz-circuit quiz-circuit-right"></span>
+        </div>
         <header class="quiz-header">
           <div>
             <p class="eyebrow">NXT Personality Scan</p>
@@ -43,6 +76,10 @@
         </header>
         <div class="progress-track" aria-label="答题进度">
           <div id="progressBar" class="progress-bar"></div>
+        </div>
+        <div class="quiz-status-strip" aria-hidden="true">
+          <span><i class="status-light"></i>NXT SCAN ONLINE</span>
+          <span>AGRITECH / CAMPUS</span>
         </div>
         <article class="question-card">
           <h3 id="questionText"></h3>
@@ -78,7 +115,6 @@
     </main>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-    <script src="script.js"></script>
+    <script src="script.js?v=11"></script>
   </body>
 </html>
