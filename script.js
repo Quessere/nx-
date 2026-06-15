@@ -917,7 +917,7 @@ function initHeroExperience() {
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
     context.setTransform(ratio, 0, 0, ratio, 0, 0);
-    const count = width < 600 ? 20 : 42;
+    const count = width < 600 ? 14 : 42;
     particles = Array.from({ length: count }, createParticle);
   };
 

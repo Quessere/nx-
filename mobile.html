@@ -6,64 +6,26 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
-    <script>
-      if (window.matchMedia("(max-width: 600px)").matches) {
-        window.location.replace(`mobile.html${window.location.search}`);
-      }
-    </script>
     <title>NXT 数智人格测试</title>
-    <link rel="stylesheet" href="style.css?v=12" />
+    <link rel="stylesheet" href="style.css?v=13" />
+    <link rel="stylesheet" href="mobile.css?v=13" />
   </head>
-  <body>
+  <body class="mobile-site">
     <main class="app-shell">
       <section id="homePage" class="page page-home is-active">
         <canvas id="heroParticles" class="hero-particles" aria-hidden="true"></canvas>
-        <div class="hero-live-copy" aria-live="polite">
-          <span class="live-status"><i></i>NXT SIGNAL ONLINE</span>
-          <strong id="dynamicHeroText">正在连接你的数智人格...</strong>
-          <small>移动光标探索数智农场</small>
-        </div>
-        <div class="hero-bg" aria-hidden="true">
-          <div class="circuit-lines"></div>
-          <div class="pixel-cloud cloud-left"></div>
-          <div class="pixel-cloud cloud-right"></div>
-          <div class="floating-island island-left">
-            <span class="farm-grid"></span>
-            <span class="bot bot-left"></span>
-            <span class="waterfall"></span>
-          </div>
-          <div class="floating-island island-right">
-            <span class="greenhouse"></span>
-            <span class="bot bot-right"></span>
-            <span class="waterfall"></span>
-          </div>
-          <div class="center-core">
-            <span></span>
-          </div>
-          <div class="drone drone-left"></div>
-          <div class="drone drone-right"></div>
-          <div class="hud-card hud-left">逻辑 · 结构</div>
-          <div class="hud-card hud-right">连接 · 共创</div>
-        </div>
         <div class="pixel-fx" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span>
         </div>
         <p class="eyebrow hero-badge">安徽农业大学 · 农芯数智社</p>
         <h1><span>NXT</span> 数智人格测试</h1>
         <p class="hero-subtitle">探索你的数智人格</p>
-        <p class="hero-copy">
-          用 30 道校园数字化情境题，定位你的数智人格原型。你会是控场的 CTRL、灵感流 STREAM，还是低电量但稳定输出的 LOWBAT？
-        </p>
-        <div class="club-panel">
-          <p>
-            农芯数智社关注 AI 工具、数据分析、网页开发与数字化创作。这里欢迎会写代码的人，也欢迎会提问题、会组织、会表达、会把想法做出来的人。
-          </p>
+        <div class="hero-live-copy" aria-live="polite">
+          <span class="live-status"><i></i>NXT SIGNAL ONLINE</span>
+          <strong id="dynamicHeroText">正在连接你的数智人格...</strong>
         </div>
+        <p class="hero-copy">用 30 道校园生活情境题，定位你的数智人格原型。</p>
+        <div class="club-panel"><p>农芯数智社关注 AI 工具、数据分析、网页开发与数字化创作。</p></div>
         <button id="startBtn" class="primary-btn">开始测试</button>
       </section>
 
@@ -82,12 +44,9 @@
           </div>
           <button id="homeBtn" class="ghost-btn" type="button">首页</button>
         </header>
-        <div class="progress-track" aria-label="答题进度">
-          <div id="progressBar" class="progress-bar"></div>
-        </div>
+        <div class="progress-track" aria-label="答题进度"><div id="progressBar" class="progress-bar"></div></div>
         <div class="quiz-status-strip" aria-hidden="true">
-          <span><i class="status-light"></i>NXT SCAN ONLINE</span>
-          <span>AGRITECH / CAMPUS</span>
+          <span><i class="status-light"></i>NXT SCAN ONLINE</span><span>AGRITECH / CAMPUS</span>
         </div>
         <article class="question-card">
           <h3 id="questionText"></h3>
@@ -105,13 +64,11 @@
           <p class="eyebrow">你的 NXT 数智人格是</p>
           <h2 id="resultName"></h2>
           <p id="resultTagline" class="result-tagline"></p>
-          <div class="match-pill">
-            匹配度 <strong id="matchValue">--%</strong>
-          </div>
+          <div class="match-pill">匹配度 <strong id="matchValue">--%</strong></div>
           <img id="resultImage" class="result-image" src="" alt="人格结果图" />
           <div class="join-panel">
             <h3>加入农芯数智社</h3>
-            <p>带着你的数智人格来组队：一起做 AI 项目、数据作品、社团活动和校园数字化实践。</p>
+            <p>带着你的数智人格来组队，一起做 AI 项目、数据作品和校园数字化实践。</p>
           </div>
         </div>
         <div class="result-actions">
@@ -121,8 +78,7 @@
         </div>
       </section>
     </main>
-
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
-    <script src="script.js?v=12"></script>
+    <script src="script.js?v=13"></script>
   </body>
 </html>
