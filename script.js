@@ -42,7 +42,7 @@ const PERSONALITY_AXES = [
   },
 ];
 
-const QUESTIONS = [
+const QUESTION_BANK = [
   q("早八闹钟响了，你的第一反应？", [
     ["立刻起，别给机会", { EXEC: 3, CONTROL: 2 }],
     ["再眯五分钟回血", { RELAX: 3, CREATE: 1 }],
@@ -362,7 +362,7 @@ const PERSONA_CHOICE_PATTERNS = {
   AGENT: choices(35, 25, 35, 5),
 };
 
-const PERSONA_OPTION_MAP = [
+const PERSONA_OPTION_BANK = [
   [["OVERCLK", "PATCH"], ["LOWBAT", "AFK"], ["DEBUG", "CTRL"], ["NODE", "SIGNAL"]],
   [["GHOST", "AFK"], ["SIGNAL", "NODE"], ["CTRL", "AGENT"], ["PROMPT", "STREAM"]],
   [["PATCH", "LOWBAT"], ["MINER", "DEBUG"], ["NODE", "SIGNAL"], ["CTRL", "PATCH"]],
@@ -394,6 +394,12 @@ const PERSONA_OPTION_MAP = [
   [["PATCH", "AGENT"], ["DEBUG", "MINER"], ["NODE", "SIGNAL"], ["PROMPT", "GLITCH"]],
   [["CTRL", "AGENT"], ["DEBUG", "MINER"], ["NODE", "SIGNAL"], ["GLITCH", "CLOUD"]],
 ];
+
+// Selected through coverage simulation against the original 30-item model.
+// Keeping the full bank makes future calibration and A/B testing possible.
+const ACTIVE_QUESTION_INDICES = [0, 1, 3, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 23, 28, 29];
+const QUESTIONS = ACTIVE_QUESTION_INDICES.map((index) => QUESTION_BANK[index]);
+const PERSONA_OPTION_MAP = ACTIVE_QUESTION_INDICES.map((index) => PERSONA_OPTION_BANK[index]);
 
 const state = {
   currentIndex: 0,
