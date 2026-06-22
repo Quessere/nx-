@@ -1,6 +1,16 @@
 .mobile-site {
   min-width: 0;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: auto;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
   background: #64d5ca;
+}
+
+.mobile-site .app-shell {
+  overflow: visible;
 }
 
 .mobile-site .app-shell {
@@ -121,6 +131,20 @@
     max(24px, calc(env(safe-area-inset-bottom) + 16px));
 }
 
+.mobile-site .page-result.is-active {
+  display: block;
+  min-height: auto;
+  overflow: visible;
+  overscroll-behavior-y: auto;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mobile-site .page-result .result-card,
+.mobile-site .page-result .result-actions {
+  width: 100%;
+}
+
 .mobile-site .page-quiz .question-card {
   flex: 0 0 auto;
   min-height: 0;
@@ -128,7 +152,7 @@
 
 .mobile-site .quiz-actions,
 .mobile-site .result-actions {
-  padding-bottom: env(safe-area-inset-bottom);
+  padding-bottom: max(28px, calc(env(safe-area-inset-bottom) + 18px));
 }
 
 .mobile-site .result-image {

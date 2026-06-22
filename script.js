@@ -432,11 +432,13 @@ const els = {
 
 const maxScores = getMaxScores();
 let latestResult = null;
+let resultImagesPreloaded = false;
 
 initMotion();
 initHeroExperience();
 
 els.startBtn.addEventListener("click", () => {
+  preloadResultImages();
   showPage("quiz");
   renderQuestion();
 });
@@ -529,7 +531,7 @@ function renderResult() {
   els.resultName.textContent = matched.persona.name;
   els.resultTagline.textContent = matched.persona.tagline;
   els.matchValue.textContent = `${matched.match}%`;
-  els.resultImage.src = `images/${matched.code}.png`;
+  els.resultImage.src = `images/results-webp/${matched.code}.webp`;
   els.resultImage.alt = matched.persona.name;
 
   showPage("result");
@@ -690,6 +692,26 @@ function saveResultImage() {
   link.click();
   link.remove();
   showToast("结果图已开始下载");
+}
+
+function preloadResultImages() {
+  if (resultImagesPreloaded) return;
+  resultImagesPreloaded = true;
+
+  const load = () => {
+    Object.keys(PERSONAS).forEach((code) => {
+      const image = new Image();
+      image.decoding = "async";
+      image.src = `images/results-webp/${code}.webp`;
+    });
+  };
+
+  if ("requestIdleCallback" in window) {
+    window.requestIdleCallback(load, { timeout: 2500 });
+    return;
+  }
+
+  window.setTimeout(load, 600);
 }
 
 async function shareResult() {

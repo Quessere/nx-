@@ -7,8 +7,8 @@
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
     <title>NXTI 数智人格测试</title>
-    <link rel="stylesheet" href="style.css?v=14" />
-    <link rel="stylesheet" href="mobile.css?v=14" />
+    <link rel="stylesheet" href="style.css?v=16" />
+    <link rel="stylesheet" href="mobile.css?v=16" />
   </head>
   <body class="mobile-site">
     <main class="app-shell">
@@ -65,7 +65,7 @@
           <h2 id="resultName"></h2>
           <p id="resultTagline" class="result-tagline"></p>
           <div class="match-pill">匹配度 <strong id="matchValue">--%</strong></div>
-          <img id="resultImage" class="result-image" src="" alt="人格结果图" />
+          <img id="resultImage" class="result-image" src="" alt="人格结果图" loading="eager" decoding="async" fetchpriority="high" />
           <div class="join-panel">
             <h3>加入农芯数智社</h3>
             <p>带着你的数智人格来组队，一起做 AI 项目、数据作品和校园数字化实践。</p>
@@ -79,6 +79,6 @@
       </section>
     </main>
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
-    <script src="script.js?v=14"></script>
+    <script src="script.js?v=16"></script>
   </body>
 </html>
